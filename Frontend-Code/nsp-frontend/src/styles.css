@@ -2,8 +2,9 @@
 :root {
   --color-accent950: #292929;
   --color-accent400: #989898;
+  --color-accent600: #656565;
   --color-accent50: #FFFFFF;
-
+  --color-white-900: #3D3D3D;
 }
 
 @font-face {
