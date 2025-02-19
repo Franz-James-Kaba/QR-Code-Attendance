@@ -2,6 +2,8 @@
 :root {
   --color-accent950: #292929;
   --color-accent400: #989898;
+  --color-accent50: #FFFFFF;
+
 }
 
 @font-face {
@@ -84,7 +86,7 @@ body {
   background-image: url("/assets/images/background-img.svg");
   background-size: cover;
   background-position: center;
-  height: 100svh;
   font-family: "Lato", sans-serif;
   font-weight: 400;
+  color: var(--color-accent950);
 }
