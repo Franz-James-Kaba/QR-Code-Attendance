@@ -1,6 +1,23 @@
-<div class="container">
+<form class="container">
   <h2>Sign in to continue...</h2>
   <div class="signin__container">
-    <app-input-field />
+    <app-input-field
+      [props]="{
+        type: 'email',
+        label: 'Work email',
+        isInvalid: false,
+        placeholder: 'Email or username',
+        errorMessage: 'Wrong username or password combination'
+      }"
+    />
+    <app-input-field
+      [props]="{
+        type: 'password',
+        label: 'Password',
+        isInvalid: false,
+        placeholder: 'Password',
+        errorMessage: ''
+      }"
+    />
   </div>
-</div>
+</form>

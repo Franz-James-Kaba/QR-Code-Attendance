@@ -12,6 +12,7 @@ h2 {
   line-height: Line Height/LH-4;
   letter-spacing: 0;
   text-align: center;
+  margin-bottom: 24px;
 }
 
 .signin__container {
