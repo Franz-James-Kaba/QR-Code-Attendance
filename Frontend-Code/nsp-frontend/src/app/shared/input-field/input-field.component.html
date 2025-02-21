@@ -1,0 +1,34 @@
+<div class="input-field">
+  <label [for]="id" class="input-field__label">
+    {{ props.label }}
+    <span>*</span>
+  </label>
+
+  <input
+    [id]="id"
+    [type]="props.type"
+    [value]="value"
+    [placeholder]="props.placeholder"
+    (input)="onInputChange($event)"
+    (blur)="onTouched()"
+    [attr.aria-invalid]="props.isInvalid"
+    [attr.aria-describedby]="props.isInvalid ? id + '-error' : null"
+    [disabled]="isDisabled"
+    class="input-field__input"
+    [class.input-field__input-error]="props.isInvalid"
+  />
+  @if (props.type === 'password') {
+  <img
+    src="/assets/images/icon-eye.svg"
+    alt="eye icon"
+    class="input-field__eye"
+  />
+  } @if (props.isInvalid && props.errorMessage) {
+  <div class="error">
+    <img src="/assets/images/icon-warning.svg" alt="warning icon" />
+    <span [id]="id + '-error'" class="error__message" role="alert">
+      {{ props.errorMessage }}
+    </span>
+  </div>
+  }
+</div>
