@@ -8,8 +8,8 @@
 
 h2 {
   font-weight: 700;
-  font-size: 1.2rem;
-  line-height: Line Height/LH-4;
+  font-size: 1.5rem;
+  line-height: 1;
   letter-spacing: 0;
   text-align: center;
   margin-bottom: 24px;
@@ -18,8 +18,50 @@ h2 {
 .signin__container {
   background-color: var(--color-accent50);
   border-radius: 4px;
+  border: 1px;
   padding: 16px;
   width: 100%;
   max-width: 290px;
   box-shadow: 0px 4px 4px 0px #0000001a;
+}
+
+app-button h3 {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--color-accent50);
+}
+
+.signin-fields__container {
+  margin-bottom: 2rem;
+}
+
+.error {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.error__message {
+  font-weight: 400;
+  font-size: 0.625rem;
+  color: var(--color-accent950);
+}
+
+.forgot-password__container {
+  text-align: center;
+}
+
+.forgot-password__text {
+  text-decoration: none;
+  color: var(--color-accent950);
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.forgot-password__text span {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--color-accent400);
 }

@@ -1,23 +1,52 @@
-<form class="container">
+<form class="container" [formGroup]="signInForm" (ngSubmit)="handleSubmit()">
   <h2>Sign in to continue...</h2>
   <div class="signin__container">
-    <app-input-field
+    <div class="signin-fields__container">
+      <app-input-field
+        [props]="{
+          type: 'email',
+          label: 'Work email',
+          isInvalid: showErrors && emailControl.invalid,
+          placeholder: 'Email or username',
+        }"
+        formControlName="email"
+      />
+      <app-input-field
+        [props]="{
+          type: 'password',
+          label: 'Password',
+          isInvalid: showErrors && passwordControl.invalid,
+          placeholder: 'Password',
+        }"
+        formControlName="password"
+      />
+
+      @if (showErrors && (emailControl.invalid || passwordControl.invalid)) {
+      <div class="error">
+        <img src="/assets/images/icon-warning.svg" alt="warning icon" />
+        <span id="error" class="error__message" role="alert">
+          {{ emailControl.invalid ? getEmailErrorMessage() : getPasswordErrorMessage() }}
+        </span>
+      </div>
+      }
+    </div>
+
+    <app-button
       [props]="{
-        type: 'email',
-        label: 'Work email',
-        isInvalid: false,
-        placeholder: 'Email or username',
-        errorMessage: 'Wrong username or password combination'
+        type: 'submit',
+        isDisabled: false,
+        isLoading: isLoading,
+        loadingText: 'Signing in...',
+        ariaLabel: 'Sign in button',
+        className: 'marginBottom'
       }"
-    />
-    <app-input-field
-      [props]="{
-        type: 'password',
-        label: 'Password',
-        isInvalid: false,
-        placeholder: 'Password',
-        errorMessage: ''
-      }"
-    />
+    >
+      <h3>Sign in</h3>
+    </app-button>
+    <div class="forgot-password__container">
+      <a href="" class="forgot-password__text"
+        >Forgot password? <span>Reset</span></a
+      >
+    </div>
   </div>
 </form>
