@@ -1,0 +1,19 @@
+<button
+  [type]="props.type"
+  [disabled]="props.isDisabled || props.isLoading"
+  [attr.aria-label]="props.ariaLabel"
+  [attr.aria-disabled]="props.isDisabled || props.isLoading"
+  [class]="getClasses()"
+  (click)="handleClick($event)"
+>
+  @if (!props.isLoading) {
+  <span class="button-content" [class.button-content--hidden]="props.isLoading">
+    <ng-content></ng-content>
+  </span>
+  } @if (props.isLoading) {
+  <span class="loading-wrapper" aria-hidden="true">
+    <span class="loading-spinner"></span>
+    <span class="loading-text">{{ props.loadingText || "Loading..." }}</span>
+  </span>
+  }
+</button>
