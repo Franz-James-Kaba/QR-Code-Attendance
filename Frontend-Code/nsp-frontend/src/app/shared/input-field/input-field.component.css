@@ -7,11 +7,15 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1;
 }
 
 .input-field__label span {
   color: var(--color-accent950);
   font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1;
 }
 
 .input-field__input {
@@ -24,6 +28,8 @@
 
 .input-field__input::placeholder {
   font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1;
   color: var(--color-accent600);
 }
 
@@ -40,16 +46,4 @@
 
 .input-field__input-error {
   border: 2px solid var(--color-white-900);
-}
-
-.error {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 1rem;
-}
-.error__message {
-  font-weight: 400;
-  font-size: 0.625rem;
-  color: var(--color-accent950);
 }
