@@ -23,12 +23,5 @@
     alt="eye icon"
     class="input-field__eye"
   />
-  } @if (props.isInvalid && props.errorMessage) {
-  <div class="error">
-    <img src="/assets/images/icon-warning.svg" alt="warning icon" />
-    <span [id]="id + '-error'" class="error__message" role="alert">
-      {{ props.errorMessage }}
-    </span>
-  </div>
   }
 </div>
