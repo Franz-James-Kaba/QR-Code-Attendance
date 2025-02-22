@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { InputFieldComponent } from '../../shared/input-field/input-field.component';
 import { ButtonComponent } from '../../shared/button/button.component';
+import { amalitechEmailValidator } from '../../core/validators/email.validator';
 
 @Component({
   selector: 'app-signin',
@@ -27,7 +28,7 @@ export class SigninComponent {
   private readonly fb = inject(FormBuilder);
 
   protected readonly signInForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, amalitechEmailValidator()]],
     password: ['', [Validators.required, Validators.minLength(8)]],
   });
 
@@ -39,22 +40,18 @@ export class SigninComponent {
     return this.signInForm.get('password')!;
   }
 
-  protected getEmailErrorMessage(): string {
+  protected getErrorMessage(): string {
     if (this.emailControl.hasError('required')) {
-      return 'Email is required';
+      return 'Email is required.';
     }
-    if (this.emailControl.hasError('email')) {
-      return 'Please enter a valid email';
+    if (this.emailControl.hasError('invalidEmail')) {
+      return 'Enter a valid Amalitech email';
     }
-    return '';
-  }
-
-  protected getPasswordErrorMessage(): string {
     if (this.passwordControl.hasError('required')) {
-      return 'Password is required';
+      return 'Password is required.';
     }
     if (this.passwordControl.hasError('minlength')) {
-      return 'Password must be at least 8 characters';
+      return `Password must be at least ${this.passwordControl.errors?.['minlength'].requiredLength} characters long.`;
     }
     return '';
   }
