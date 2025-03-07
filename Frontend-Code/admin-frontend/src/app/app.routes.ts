@@ -1,8 +1,7 @@
-import { Routes, Router } from '@angular/router';
+import { Routes } from '@angular/router';
 import { LayoutComponent } from './layouts/auth-layout/layout.component';
 import { LayoutComponent as AdminLayoutComponent } from './layouts/admin-layout/layout.component';
 import { AuthGuard } from './core/guards/auth.guard';
-import { inject } from '@angular/core';
 
 export const routes: Routes = [
   {
@@ -17,16 +16,7 @@ export const routes: Routes = [
       {
         path: 'login',
         loadComponent: () => import('./features/auth/pages/login/login.component')
-          .then(m => m.LoginComponent),
-        // canActivate: [() => {
-        //   const router = inject(Router);
-        //   const token = localStorage.getItem('auth_token');
-        //   if (token) {
-        //     router.navigate(['/admin/dashboard']);
-        //     return false;
-        //   }
-        //   return true;
-        // }]
+          .then(m => m.LoginComponent)
       },
       {
         path: 'reset-password',
