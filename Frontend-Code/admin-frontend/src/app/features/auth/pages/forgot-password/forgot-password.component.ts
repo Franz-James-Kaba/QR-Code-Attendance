@@ -13,6 +13,8 @@ import { map, take } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 import { amaliTechEmailValidator } from '@app/shared/validators/email.validator';
 import { RouterLink } from '@angular/router';
+import { CardConfig, DynamicCardComponent } from '@shared/components/card/card.component';
+import { DialogService} from '@core/services/dialog.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -25,6 +27,14 @@ export class ForgotPasswordComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly dialogService = inject(DialogService);
+
+  successCardConfig: CardConfig = {
+    type: 'success',
+    title: 'Password reset successfully',
+    buttonText: 'Back to Login',
+    showCloseButton: true
+  };
 
   forgotPasswordForm = this.fb.group({
     email: ['', [Validators.required, Validators.email, amaliTechEmailValidator()]],
@@ -74,17 +84,17 @@ export class ForgotPasswordComponent implements OnInit {
     this.store.dispatch(AuthActions.setAuthStep({ step: AuthStep.EMAIL }));
   }
 
-  getErrorMessage(controlName: string): string {
-    const control = this.forgotPasswordForm.get(controlName);
-    if (!control?.errors) return '';
-
-    if (control.errors['required']) return 'This field is required';
-    if (control.errors['email']) return 'Please enter a valid email';
-    if (control.errors['pattern']) return 'Please enter a valid 6-digit code';
-    if (control.errors['minlength']) return 'Password must be at least 8 characters';
-
-    return '';
-  }
+  // getErrorMessage(controlName: string): string {
+  //   const control = this.forgotPasswordForm.get(controlName);
+  //   if (!control?.errors) return '';
+  //
+  //   if (control.errors['required']) return 'This field is required';
+  //   if (control.errors['email']) return 'Please enter a valid email';
+  //   if (control.errors['pattern']) return 'Please enter a valid 6-digit code';
+  //   if (control.errors['minlength']) return 'Password must be at least 8 characters';
+  //
+  //   return '';
+  // }
 
   private passwordMatchValidator(): ValidatorFn {
     return (group: AbstractControl): ValidationErrors | null => {
@@ -120,10 +130,34 @@ export class ForgotPasswordComponent implements OnInit {
               newPassword,
               oldPassword: ''
             }));
+            this.isSubmitting$.pipe(take(1)).subscribe(isSubmitting => {
+              if (!isSubmitting) {
+                this.openSuccessModal();
+              }
+            })
           }
           break;
         }
       }
+    });
+  }
+
+  openSuccessModal(): void {
+    console.log('Opening success modal');
+    const componentRef = this.dialogService.open(DynamicCardComponent, {
+      config: this.successCardConfig,
+      isModal: true
+    });
+    console.log('Success modal component reference created:', componentRef);
+
+    componentRef.instance.closeModal.subscribe(() => {
+      console.log('Close modal event received');
+      this.dialogService.close();
+    });
+
+    componentRef.instance.buttonClick.subscribe(() => {
+      console.log('Modal button clicked');
+      this.dialogService.close();
     });
   }
 }

@@ -1,0 +1,35 @@
+<section class="flex justify-between items-center mb-4 md:mb-8 md:mt-4">
+  <div class="flex flex-col gap-2 items-start">
+    <h1 class="text-2xl font-bold ">Hi, Franz</h1>
+    <p>This is the summary of your dashboard</p>
+  </div>
+  
+  <div class="flex gap-2">
+    <app-button
+      (click)="showAddModal()"
+      [icon]="'add'"
+      [type]="'button'">
+      Create NSP
+    </app-button>
+    <app-button
+      (click)="showAddModal()"
+      [icon]="'add'"
+      [type]="'button'">
+      Create Facilitator
+    </app-button>
+  </div>
+</section>
+
+<section>
+  <div class="analytics-grid">
+    <app-dynamic-card
+      (detailsClick)="showDetails('nsps')"
+      [config]="nspCardConfig">
+    </app-dynamic-card>
+
+    <app-dynamic-card
+      (detailsClick)="showDetails('facilitators')"
+      [config]="facilitatorCardConfig">
+    </app-dynamic-card>
+  </div>
+</section>

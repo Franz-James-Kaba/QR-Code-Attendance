@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { map, catchError, exhaustMap, tap } from 'rxjs/operators';
 import { AuthStep } from '@app/shared/models/auth.model';
+import { ForgotPasswordComponent } from '@features/auth/pages/forgot-password/forgot-password.component';
 
 export class AuthEffects {
   private readonly actions$ = inject(Actions);
@@ -34,7 +35,7 @@ export class AuthEffects {
           localStorage.setItem('auth_token', response.token);
           const redirectUrl = response.passwordResetRequired
             ? '/auth/reset-password'
-            : '/admin/dashboard';
+            : '/admin/dashboard/overview';
           this.router.navigate([redirectUrl]);
         })
       ),
@@ -60,7 +61,9 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.resetPasswordSuccess),
         tap(() => {
-          this.router.navigate(['/auth/login']);
+          // Trigger the modal to open instead of navigating automatically
+          const forgotPasswordComponent = inject(ForgotPasswordComponent);
+          forgotPasswordComponent.openSuccessModal();
         })
       ),
     { dispatch: false }

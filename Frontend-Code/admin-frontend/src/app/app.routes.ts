@@ -49,7 +49,22 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./features/dashboard/pages/dashboard/dashboard.component')
           .then(m => m.DashboardComponent),
-        data: { title: 'Dashboard' }
+        data: { title: 'Dashboard' },
+        children: [
+          {
+            path: 'overview',
+            loadComponent: () => import('./features/dashboard/components/overview/overview.component')
+              .then(m => m.OverviewComponent),
+            data: { title: 'Overview' },
+            pathMatch: 'full'
+          },
+          {
+            path: 'users',
+            loadComponent: () => import('./features/dashboard/components/users/users.component')
+              .then(m => m.UsersComponent),
+            data: { title: 'Users' }
+          }
+        ]
       },
       {
         path: '**',
