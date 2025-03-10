@@ -1,0 +1,54 @@
+<div
+  class="font-sans"
+  [ngClass]="{'fixed inset-0 flex justify-center items-center z-50': isModal}"
+  *ngIf="visible"
+  (clickOutside)="onClickOutside()"
+>
+  <div
+    class="bg-white shadow-lg rounded-lg overflow-hidden w-full max-w-md"
+    [ngClass]="{'p-10 text-center': config.type === 'success', 'p-5': config.type === 'analytics'}"
+  >
+    <!-- Close button for modal mode -->
+    <button
+      *ngIf="isModal && config.showCloseButton"
+      class="absolute top-2 right-2 bg-transparent border-none text-xl cursor-pointer text-gray-600"
+      (click)="close()"
+    >
+      ×
+    </button>
+
+    <!-- Success Card Content -->
+    <div *ngIf="config.type === 'success'" class="flex flex-col items-center gap-5">
+      <div class="w-16 h-16 rounded-full border-2 border-gray-800 flex justify-center items-center">
+        <span class="text-2xl text-gray-800">✓</span>
+      </div>
+      <h2 class="text-lg text-gray-800">{{ config.title || 'Success' }}</h2>
+      <button
+        class="bg-gray-800 text-white rounded-md py-3 px-6 text-base cursor-pointer w-full max-w-xs"
+        (click)="onButtonClick()"
+      >
+        {{ config.buttonText || 'Continue' }}
+      </button>
+    </div>
+
+    <!-- Analytics Card Content -->
+    <div *ngIf="config.type === 'analytics'" class="flex flex-col gap-3">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold">{{ config.count }}</h1>
+        <div *ngIf="config.icon" class="w-6 h-6 flex justify-center items-center">
+          <span>{{ config.icon }}</span>
+        </div>
+      </div>
+      <div class="flex justify-between items-center">
+        <p class="text-sm text-gray-600">{{ config.subtitle }}</p>
+        <a
+          *ngIf="config.detailsLink"
+          class="text-xs text-gray-500 cursor-pointer"
+          (click)="onDetailsClick()"
+        >
+          more details →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
