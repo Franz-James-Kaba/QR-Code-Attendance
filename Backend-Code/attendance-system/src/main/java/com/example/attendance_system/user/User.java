@@ -1,6 +1,7 @@
 package com.example.attendance_system.user;
 
 import com.example.attendance_system.role.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
