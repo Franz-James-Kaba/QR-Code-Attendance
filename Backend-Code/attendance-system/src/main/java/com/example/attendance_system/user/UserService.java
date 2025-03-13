@@ -6,9 +6,13 @@ import com.example.attendance_system.exceptions.InvalidTokenException;
 import com.example.attendance_system.exceptions.ResourceNotFoundException;
 import com.example.attendance_system.exceptions.TokenExpiredException;
 import com.example.attendance_system.exceptions.UserNotFoundException;
+import com.example.attendance_system.role.Role;
 import com.example.attendance_system.role.Roles;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -131,6 +137,27 @@ public class UserService {
 
         userRepository.delete(user);
     }
+    // getting user with userid
+    public User getUserByEmail(String email) {
+         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    //getting all nsps
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findByRole(Role.USER, pageable);
+    }
+
+    //getting a facilitator
+    public Page<User> getAllFacilitators(Pageable pageable) {
+        return userRepository.findByRole(Role.FACILITATOR, pageable);
+    }
+
+
+    public Page<User> paginatedUsers(int offset, int pageSize){
+        Page<User> users = userRepository.findAll(PageRequest.of(offset, pageSize));
+        return users;
+    }
+
 
     private void validateRequest(String email, Token savedToken) {
         if (!email.equals(savedToken.getUser().getEmail()))
